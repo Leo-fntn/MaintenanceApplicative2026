@@ -13,6 +13,7 @@ class GildedRoseTest {
         app.updateQuality();
         assertEquals(9, items[0].sellIn);
         assertEquals(19, items[0].quality);
+        assertEquals("Normal Item, 9, 19", items[0].toString());
     }
 
     @Test

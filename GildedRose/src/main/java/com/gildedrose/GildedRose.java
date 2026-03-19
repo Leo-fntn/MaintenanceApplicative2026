@@ -7,60 +7,60 @@ class GildedRose {
         this.items = items;
     }
 
-    public void doAgedBrie(int i) {
-        if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1;
+    public void doAgedBrie(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
         }
 
-        items[i].sellIn = items[i].sellIn - 1;
+        item.sellIn = item.sellIn - 1;
 
-        if (items[i].sellIn < 0) {
-            if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1;
+        if (item.sellIn < 0) {
+            if (item.quality < 50) {
+                item.quality = item.quality + 1;
             }
         }
     }
 
-    public void doSulfuras(int i){
+    public void doSulfuras(Item item){
         // ça change rien
     }
 
-    public void doBackstagePasses(int i) {
-        if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1;
+    public void doBackstagePasses(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
 
-            if (items[i].sellIn < 11) {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
+            if (item.sellIn < 11) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1;
                 }
             }
 
-            if (items[i].sellIn < 6) {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
+            if (item.sellIn < 6) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1;
                 }
             }
 
         }
 
-        items[i].sellIn = items[i].sellIn - 1;
+        item.sellIn = item.sellIn - 1;
 
-        if (items[i].sellIn < 0) {
-            items[i].quality = items[i].quality - items[i].quality;
+        if (item.sellIn < 0) {
+            item.quality = 0;
         }
     }
 
-    public void doNormalItem(int i) {
-            if (items[i].quality > 0) {
-                    items[i].quality = items[i].quality - 1;
+    public void doNormalItem(Item item) {
+            if (item.quality > 0) {
+                    item.quality = item.quality - 1;
             }
 
 
-            items[i].sellIn = items[i].sellIn - 1;
+            item.sellIn = item.sellIn - 1;
 
-        if (items[i].sellIn < 0) {
-            if (items[i].quality > 0) {
-                items[i].quality = items[i].quality - 1;
+        if (item.sellIn < 0) {
+            if (item.quality > 0) {
+                item.quality = item.quality - 1;
             }
         }
     }
@@ -69,16 +69,16 @@ class GildedRose {
         for (int i = 0; i < items.length; i++) {
             switch (items[i].name) {
                 case "Aged Brie":
-                    doAgedBrie(i);
+                    doAgedBrie(items[i]);
                     return;
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    doBackstagePasses(i);
+                    doBackstagePasses(items[i]);
                     return;
                 case "Sulfuras, Hand of Ragnaros":
-                    doSulfuras(i);
+                    doSulfuras(items[i]);
                     return;
                 default:
-                    doNormalItem(i);
+                    doNormalItem(items[i]);
                     return;
             }
         }

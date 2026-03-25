@@ -3,3 +3,5 @@ GildedRose/target/
 GildedRose/.mvn/
 GildedRose/.vscode/
 */target/
+*/out/
+*.iml

@@ -149,4 +149,32 @@ class CalendarManagerTest {
         assertFalse(calendar.conflit(e1, e2));
         assertFalse(calendar.conflit(e2, e1));
     }
+
+    // Tests supprimer un evenement avec son ID
+
+    @Test
+    void supprimerUnEvenementParSonId() {
+        EventId id = new EventId("abc-123");
+        calendar.ajouterEvent(new RdvPersonnel(id, new TitreEvenement("Dentiste"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(30)));
+        calendar.supprimerEvent(id);
+        assertTrue(calendar.events.isEmpty());
+    }
+
+    @Test
+    void supprimerUnEvenementNaffectePasLesAutres() {
+        EventId id1 = new EventId("abc-123");
+        EventId id2 = new EventId("def-456");
+        calendar.ajouterEvent(new RdvPersonnel(id1, new TitreEvenement("Dentiste"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(30)));
+        calendar.ajouterEvent(new RdvPersonnel(id2, new TitreEvenement("Coiffeur"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(45)));
+        calendar.supprimerEvent(id1);
+        assertEquals(1, calendar.events.size());
+        assertEquals(id2, ((RdvPersonnel) calendar.events.getFirst()).id);
+    }
+
+    @Test
+    void supprimerUnIdInexistantNeFaitRien() {
+        calendar.ajouterEvent(new RdvPersonnel(new EventId("abc-123"), new TitreEvenement("Dentiste"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(30)));
+        calendar.supprimerEvent(new EventId("inexistant"));
+        assertEquals(1, calendar.events.size());
+    }
 }

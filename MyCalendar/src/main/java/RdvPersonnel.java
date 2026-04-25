@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 
 public class RdvPersonnel extends Event{
-    public RdvPersonnel(TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, int dureeMinutes) {
+    public RdvPersonnel(TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, DureeEvenement dureeMinutes) {
         super(title, proprietaire, dateDebut, heureDebut, dureeMinutes);
     }
 
@@ -17,8 +17,8 @@ public class RdvPersonnel extends Event{
     public Boolean estEnConflit(Event autre) {
         LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
         LocalDateTime autredt = LocalDateTime.of(autre.dateDebut.valeur(), autre.heureDebut.valeur());
-        LocalDateTime fin1 = dt.plusMinutes(dureeMinutes);
-        LocalDateTime fin2 = autredt.plusMinutes(autre.dureeMinutes);
+        LocalDateTime fin1 = dt.plusMinutes(dureeMinutes.valeur());
+        LocalDateTime fin2 = autredt.plusMinutes(autre.dureeMinutes.valeur());
         return dt.isBefore(fin2) && fin1.isAfter(autredt);
     }
 }

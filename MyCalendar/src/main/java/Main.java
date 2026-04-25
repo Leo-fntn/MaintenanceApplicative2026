@@ -178,7 +178,7 @@ public class Main {
                         int duree = Integer.parseInt(scanner.nextLine());
 
                         calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement(titre), new ProprietaireEvenement(utilisateur),
-                                new DateEvenement(LocalDate.of(annee, moisRdv, jourRdv)), new HeureDebut(LocalTime.of(heure, minute)), duree));
+                                new DateEvenement(LocalDate.of(annee, moisRdv, jourRdv)), new HeureDebut(LocalTime.of(heure, minute)), new DureeEvenement(duree)));
 
                         System.out.println("Événement ajouté.");
                         break;
@@ -213,7 +213,7 @@ public class Main {
                         }
 
                         calendar.ajouterEvent(new Reunion(new TitreEvenement(titre2), new ProprietaireEvenement(utilisateur),
-                                new DateEvenement(LocalDate.of(annee2, moisRdv2, jourRdv2)), new HeureDebut(LocalTime.of(heure2, minute2)), duree2,
+                                new DateEvenement(LocalDate.of(annee2, moisRdv2, jourRdv2)), new HeureDebut(LocalTime.of(heure2, minute2)), new DureeEvenement(duree2),
                                 lieu, participants));
 
                         System.out.println("Événement ajouté.");
@@ -237,7 +237,7 @@ public class Main {
                         int frequence = Integer.parseInt(scanner.nextLine());
 
                         calendar.ajouterEvent(new Periodique(new TitreEvenement(titre3), new ProprietaireEvenement(utilisateur),
-                                new DateEvenement(LocalDate.of(annee3, moisRdv3, jourRdv3)), new HeureDebut(LocalTime.of(heure3, minute3)), 0,
+                                new DateEvenement(LocalDate.of(annee3, moisRdv3, jourRdv3)), new HeureDebut(LocalTime.of(heure3, minute3)), new DureeEvenement(0),
                                 frequence));
 
                         System.out.println("Événement ajouté.");

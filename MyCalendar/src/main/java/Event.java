@@ -6,9 +6,9 @@ public abstract class Event {
     public ProprietaireEvenement proprietaire;
     public DateEvenement dateDebut;
     public HeureDebut heureDebut;
-    public int dureeMinutes;
+    public DureeEvenement dureeMinutes;
 
-    public Event(TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, int dureeMinutes) {
+    public Event(TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, DureeEvenement dureeMinutes) {
         this.title = title;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;

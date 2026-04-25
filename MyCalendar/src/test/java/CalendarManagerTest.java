@@ -77,7 +77,7 @@ class CalendarManagerTest {
         assertEquals(new ProprietaireEvenement("Ilan"),    e.proprietaire);
         assertEquals(DATE,                                 e.dateDebut);
         assertEquals(HEURE,                                e.heureDebut);
-        assertEquals(new DureeEvenement(90),               e.duree);
+        assertEquals(new DureeEvenement(90),               e.dureeMinutes);
         assertEquals("Salle C",                            e.lieu);
         assertEquals("Ilan, Noah",                         e.participants);
     }

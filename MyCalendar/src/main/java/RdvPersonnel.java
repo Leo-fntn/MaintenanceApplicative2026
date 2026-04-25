@@ -9,4 +9,8 @@ public class RdvPersonnel extends Event{
     public String description() {
         return "RDV : " + title + " à " + dateDebut.toString();
     }
+
+    public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+        return !dateDebut.isBefore(debut) && !dateDebut.isAfter(fin);
+    }
 }

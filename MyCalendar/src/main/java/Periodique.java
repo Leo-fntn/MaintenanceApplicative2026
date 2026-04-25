@@ -12,4 +12,15 @@ public class Periodique extends Event {
     public String description() {
         return "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
     }
+
+    public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+        LocalDateTime temp = dateDebut;
+        while (temp.isBefore(fin)) {
+            if (!temp.isBefore(debut)) {
+                return true;
+            }
+            temp = temp.plusDays(frequenceJours);
+        }
+        return false;
+    }
 }

@@ -16,4 +16,6 @@ public abstract class Event {
     }
 
     public abstract String description();
+
+    public abstract Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin);
 }

@@ -3,14 +3,13 @@ import java.time.LocalDateTime;
 public class Periodique extends Event {
     public int frequenceJours; // uniquement pour PERIODIQUE
 
-    public Periodique(String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes, int frequenceJours) {
+    public Periodique(TitreEvenement title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes, int frequenceJours) {
         super(title, proprietaire, dateDebut, dureeMinutes);
-        this.type = "PERIODIQUE";
         this.frequenceJours = frequenceJours;
     }
 
     public String description() {
-        return "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
+        return "Événement périodique : " + title.valeur() + " tous les " + frequenceJours + " jours";
     }
 
     public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {

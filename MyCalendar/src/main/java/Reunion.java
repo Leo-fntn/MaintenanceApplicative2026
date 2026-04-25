@@ -4,15 +4,14 @@ public class Reunion extends Event {
     public String lieu; // utilisé seulement pour REUNION
     public String participants; // séparés par virgules (pour REUNION uniquement)
 
-    public Reunion(String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes, String lieu, String participants) {
+    public Reunion(TitreEvenement title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes, String lieu, String participants) {
         super(title, proprietaire, dateDebut, dureeMinutes);
-        this.type = "REUNION";
         this.lieu = lieu;
         this.participants = participants;
     }
 
     public String description() {
-        return "Réunion : " + title + " à " + lieu + " avec " + participants;
+        return "Réunion : " + title.valeur() + " à " + lieu + " avec " + participants;
     }
 
     public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {

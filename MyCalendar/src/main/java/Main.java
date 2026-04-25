@@ -238,7 +238,7 @@ public class Main {
 
                         calendar.ajouterEvent(new Periodique(new TitreEvenement(titre3), new ProprietaireEvenement(utilisateur),
                                 new DateEvenement(LocalDate.of(annee3, moisRdv3, jourRdv3)), new HeureDebut(LocalTime.of(heure3, minute3)), new DureeEvenement(0),
-                                frequence));
+                                new FrequencePeriodique(frequence)));
 
                         System.out.println("Événement ajouté.");
                         break;

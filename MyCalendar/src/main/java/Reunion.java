@@ -18,4 +18,10 @@ public class Reunion extends Event {
     public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         return !dateDebut.isBefore(debut) && !dateDebut.isAfter(fin);
     }
+
+    public Boolean estEnConflit(Event autre) {
+        LocalDateTime fin1 = dateDebut.plusMinutes(dureeMinutes);
+        LocalDateTime fin2 = autre.dateDebut.plusMinutes(autre.dureeMinutes);
+        return dateDebut.isBefore(fin2) && fin1.isAfter(autre.dateDebut);
+    }
 }

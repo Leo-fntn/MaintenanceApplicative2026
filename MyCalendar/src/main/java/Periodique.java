@@ -23,4 +23,8 @@ public class Periodique extends Event {
         }
         return false;
     }
+
+    public Boolean estEnConflit(Event autre) {
+        return false;
+    }
 }

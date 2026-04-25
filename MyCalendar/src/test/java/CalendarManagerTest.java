@@ -75,8 +75,8 @@ class CalendarManagerTest {
         Reunion e = (Reunion) calendar.events.getFirst();
         assertEquals(new TitreEvenement("Démo"),          e.title);
         assertEquals(new ProprietaireEvenement("Ilan"),    e.proprietaire);
-        assertEquals(DATE,                                 e.date);
-        assertEquals(HEURE,                                e.heure);
+        assertEquals(DATE,                                 e.dateDebut);
+        assertEquals(HEURE,                                e.heureDebut);
         assertEquals(90,                                   e.dureeMinutes);
         assertEquals("Salle C",                            e.lieu);
         assertEquals("Ilan, Noah",                         e.participants);

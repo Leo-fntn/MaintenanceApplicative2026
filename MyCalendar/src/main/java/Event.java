@@ -3,11 +3,11 @@ import java.time.LocalDateTime;
 
 public abstract class Event {
     public TitreEvenement title;
-    public String proprietaire;
+    public ProprietaireEvenement proprietaire;
     public LocalDateTime dateDebut;
     public int dureeMinutes;
 
-    public Event(TitreEvenement title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes) {
+    public Event(TitreEvenement title, ProprietaireEvenement proprietaire, LocalDateTime dateDebut, int dureeMinutes) {
         this.title = title;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;

@@ -175,7 +175,7 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement(titre), utilisateur,
+                        calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement(titre), new ProprietaireEvenement(utilisateur),
                                 LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree));
 
                         System.out.println("Événement ajouté.");
@@ -210,7 +210,7 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEvent(new Reunion(new TitreEvenement(titre2), utilisateur,
+                        calendar.ajouterEvent(new Reunion(new TitreEvenement(titre2), new ProprietaireEvenement(utilisateur),
                                 LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
                                 lieu, participants));
 
@@ -234,7 +234,7 @@ public class Main {
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent(new Periodique(new TitreEvenement(titre3), utilisateur,
+                        calendar.ajouterEvent(new Periodique(new TitreEvenement(titre3), new ProprietaireEvenement(utilisateur),
                                 LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
                                 frequence));
 

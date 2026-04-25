@@ -4,7 +4,7 @@ public class Reunion extends Event {
     public String lieu; // utilisé seulement pour REUNION
     public String participants; // séparés par virgules (pour REUNION uniquement)
 
-    public Reunion(TitreEvenement title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes, String lieu, String participants) {
+    public Reunion(TitreEvenement title, ProprietaireEvenement proprietaire, LocalDateTime dateDebut, int dureeMinutes, String lieu, String participants) {
         super(title, proprietaire, dateDebut, dureeMinutes);
         this.lieu = lieu;
         this.participants = participants;

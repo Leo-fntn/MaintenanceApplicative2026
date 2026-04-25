@@ -8,4 +8,8 @@ public class Periodique extends Event {
         this.type = "PERIODIQUE";
         this.frequenceJours = frequenceJours;
     }
+
+    public String description() {
+        return "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
+    }
 }

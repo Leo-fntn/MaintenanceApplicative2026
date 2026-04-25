@@ -10,4 +10,8 @@ public class Reunion extends Event {
         this.lieu = lieu;
         this.participants = participants;
     }
+
+    public String description() {
+        return "Réunion : " + title + " à " + lieu + " avec " + participants;
+    }
 }

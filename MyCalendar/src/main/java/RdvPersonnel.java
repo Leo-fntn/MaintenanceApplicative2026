@@ -5,4 +5,8 @@ public class RdvPersonnel extends Event{
         super(title, proprietaire, dateDebut, dureeMinutes);
         this.type = "RDV_PERSONNEL";
     }
+
+    public String description() {
+        return "RDV : " + title + " à " + dateDebut.toString();
+    }
 }

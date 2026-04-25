@@ -24,7 +24,7 @@ class CalendarManagerTest {
 
     @Test
     void rdvPersonnelContientTitreEtDate() {
-        Event e = new RdvPersonnel("Dentiste", "Léo", TIME);
+        Event e = new RdvPersonnel("Dentiste", "Léo", TIME, 30);
         assertTrue(e.description().contains("Dentiste"));
         assertTrue(e.description().contains(TIME.toString()));
     }
@@ -68,7 +68,7 @@ class CalendarManagerTest {
     @Test
     void evenementAjouteConserveSesDonnees() {
         calendar.ajouterEvent(new Reunion("Démo", "Ilan", TIME, 90, "Salle C", "Ilan, Noah"));
-        Event e = calendar.events.getFirst();
+        Reunion e = (Reunion) calendar.events.getFirst();
         assertEquals("Démo",       e.title);
         assertEquals("Ilan",      e.proprietaire);
         assertEquals(TIME,         e.dateDebut);

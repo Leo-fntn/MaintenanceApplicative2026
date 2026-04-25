@@ -8,12 +8,4 @@ public class RdvPersonnel extends Event{
     public String description() {
         return "RDV : " + title.valeur() + " le " + dateDebut.valeur().toString() + " à " + heureDebut.valeur().toString();
     }
-
-    public Boolean estEnConflit(Event autre) {
-        LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
-        LocalDateTime autredt = LocalDateTime.of(autre.dateDebut.valeur(), autre.heureDebut.valeur());
-        LocalDateTime fin1 = dt.plusMinutes(dureeMinutes.valeur());
-        LocalDateTime fin2 = autredt.plusMinutes(autre.dureeMinutes.valeur());
-        return dt.isBefore(fin2) && fin1.isAfter(autredt);
-    }
 }

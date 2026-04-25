@@ -24,6 +24,7 @@ public class Periodique extends Event {
         return false;
     }
 
+    @Override
     public Boolean estEnConflit(Event autre) {
         return false;
     }

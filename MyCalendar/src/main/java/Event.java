@@ -23,5 +23,11 @@ public abstract class Event {
         return !dt.isBefore(debut) && !dt.isAfter(fin);
     }
 
-    public abstract Boolean estEnConflit(Event autre);
+    public Boolean estEnConflit(Event autre) {
+        LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
+        LocalDateTime autredt = LocalDateTime.of(autre.dateDebut.valeur(), autre.heureDebut.valeur());
+        LocalDateTime fin1 = dt.plusMinutes(dureeMinutes.valeur());
+        LocalDateTime fin2 = autredt.plusMinutes(autre.dureeMinutes.valeur());
+        return dt.isBefore(fin2) && fin1.isAfter(autredt);
+    }
 }

@@ -13,12 +13,4 @@ public class Reunion extends Event {
     public String description() {
         return "Réunion : " + title.valeur() + " à " + lieu + " avec " + participants;
     }
-
-    public Boolean estEnConflit(Event autre) {
-        LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
-        LocalDateTime autredt = LocalDateTime.of(autre.dateDebut.valeur(), autre.heureDebut.valeur());
-        LocalDateTime fin1 = dt.plusMinutes(dureeMinutes.valeur());
-        LocalDateTime fin2 = autredt.plusMinutes(autre.dureeMinutes.valeur());
-        return dt.isBefore(fin2) && fin1.isAfter(autredt);
-    }
 }

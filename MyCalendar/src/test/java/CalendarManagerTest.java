@@ -43,7 +43,7 @@ class CalendarManagerTest {
 
     @Test
     void periodiqueMentionneFrequenceEtTitre() {
-        Event e = new Periodique(new TitreEvenement("Stand-up"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), 7);
+        Event e = new Periodique(new TitreEvenement("Stand-up"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), new FrequencePeriodique(7));
         assertTrue(e.description().contains("Stand-up"));
         assertTrue(e.description().contains("7"));
     }
@@ -65,7 +65,7 @@ class CalendarManagerTest {
     void ajouterPlusieursEvenements() {
         calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("Coiffeur"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(45)));
         calendar.ajouterEvent(new Reunion(new TitreEvenement("Revue"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusHours(2)), new DureeEvenement(60), new LieuReunion("Salle A"), new ParticipantsReunion("Léo")));
-        calendar.ajouterEvent(new Periodique(new TitreEvenement("Stand-up"), new ProprietaireEvenement("Léo"), new DateEvenement(DATE.valeur().plusDays(1)), HEURE, new DureeEvenement(0), 1));
+        calendar.ajouterEvent(new Periodique(new TitreEvenement("Stand-up"), new ProprietaireEvenement("Léo"), new DateEvenement(DATE.valeur().plusDays(1)), HEURE, new DureeEvenement(0), new FrequencePeriodique(1)));
         assertEquals(3, calendar.events.size());
     }
 
@@ -107,14 +107,14 @@ class CalendarManagerTest {
 
     @Test
     void evenementPeriodiqueApparaitSiUneOccurrenceTombeDansLaPeriode() {
-        calendar.ajouterEvent(new Periodique(new TitreEvenement("Hebdo"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), 7));
+        calendar.ajouterEvent(new Periodique(new TitreEvenement("Hebdo"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), new FrequencePeriodique(7)));
         List<Event> result = calendar.eventsDansPeriode(TIME.plusDays(13), TIME.plusDays(15));
         assertEquals(1, result.size());
     }
 
     @Test
     void evenementPeriodiqueNApparaitPasQuandAucuneOccurrenceDansLaPeriode() {
-        calendar.ajouterEvent(new Periodique(new TitreEvenement("Hebdo"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), 7));
+        calendar.ajouterEvent(new Periodique(new TitreEvenement("Hebdo"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), new FrequencePeriodique(7)));
         List<Event> result = calendar.eventsDansPeriode(TIME.plusDays(1), TIME.plusDays(3));
         assertTrue(result.isEmpty());
     }
@@ -145,7 +145,7 @@ class CalendarManagerTest {
     @Test
     void conflitImpliquantUnPeriodiqueToujoursRetourneFalse() {
         Event e1 = new RdvPersonnel(new TitreEvenement("A"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60));
-        Event e2 = new Periodique(new TitreEvenement("Hebdo"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), 7);
+        Event e2 = new Periodique(new TitreEvenement("Hebdo"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(0), new FrequencePeriodique(7));
         assertFalse(calendar.conflit(e1, e2));
         assertFalse(calendar.conflit(e2, e1));
     }

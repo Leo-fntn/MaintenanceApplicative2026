@@ -18,7 +18,10 @@ public abstract class Event {
 
     public abstract String description();
 
-    public abstract Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin);
+    public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+        LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
+        return !dt.isBefore(debut) && !dt.isAfter(fin);
+    }
 
     public abstract Boolean estEnConflit(Event autre);
 }

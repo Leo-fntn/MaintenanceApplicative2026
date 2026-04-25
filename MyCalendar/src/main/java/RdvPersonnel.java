@@ -9,11 +9,6 @@ public class RdvPersonnel extends Event{
         return "RDV : " + title.valeur() + " le " + dateDebut.valeur().toString() + " à " + heureDebut.valeur().toString();
     }
 
-    public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
-        return !dt.isBefore(debut) && !dt.isAfter(fin);
-    }
-
     public Boolean estEnConflit(Event autre) {
         LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
         LocalDateTime autredt = LocalDateTime.of(autre.dateDebut.valeur(), autre.heureDebut.valeur());

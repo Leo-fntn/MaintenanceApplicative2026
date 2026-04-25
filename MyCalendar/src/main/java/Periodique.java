@@ -12,6 +12,7 @@ public class Periodique extends Event {
         return "Événement périodique : " + title.valeur() + " tous les " + frequenceJours + " jours";
     }
 
+    @Override
     public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         LocalDateTime temp = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
         while (temp.isBefore(fin)) {

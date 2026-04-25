@@ -14,11 +14,6 @@ public class Reunion extends Event {
         return "Réunion : " + title.valeur() + " à " + lieu + " avec " + participants;
     }
 
-    public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
-        return !dt.isBefore(debut) && !dt.isAfter(fin);
-    }
-
     public Boolean estEnConflit(Event autre) {
         LocalDateTime dt = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
         LocalDateTime autredt = LocalDateTime.of(autre.dateDebut.valeur(), autre.heureDebut.valeur());

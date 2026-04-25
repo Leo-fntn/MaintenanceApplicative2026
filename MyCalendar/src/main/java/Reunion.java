@@ -2,9 +2,9 @@ import java.time.LocalDateTime;
 
 public class Reunion extends Event {
     public LieuReunion lieu; // utilisé seulement pour REUNION
-    public String participants; // séparés par virgules (pour REUNION uniquement)
+    public ParticipantsReunion participants; // séparés par virgules (pour REUNION uniquement)
 
-    public Reunion(TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, DureeEvenement dureeMinutes, LieuReunion lieu, String participants) {
+    public Reunion(TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, DureeEvenement dureeMinutes, LieuReunion lieu, ParticipantsReunion participants) {
         super(title, proprietaire, dateDebut, heureDebut, dureeMinutes);
         this.lieu = lieu;
         this.participants = participants;

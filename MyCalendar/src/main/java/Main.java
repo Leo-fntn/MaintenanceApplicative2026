@@ -214,7 +214,7 @@ public class Main {
 
                         calendar.ajouterEvent(new Reunion(new TitreEvenement(titre2), new ProprietaireEvenement(utilisateur),
                                 new DateEvenement(LocalDate.of(annee2, moisRdv2, jourRdv2)), new HeureDebut(LocalTime.of(heure2, minute2)), new DureeEvenement(duree2),
-                                new LieuReunion(lieu), participants));
+                                new LieuReunion(lieu), new ParticipantsReunion(participants)));
 
                         System.out.println("Événement ajouté.");
                         break;

@@ -35,7 +35,7 @@ class CalendarManagerTest {
 
     @Test
     void reunionContientTitreLieuEtParticipants() {
-        Event e = new Reunion(new TitreEvenement("Sprint"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60), "Salle B", "Léo, Ilan");
+        Event e = new Reunion(new TitreEvenement("Sprint"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60), new LieuReunion("Salle B"), "Léo, Ilan");
         assertTrue(e.description().contains("Sprint"));
         assertTrue(e.description().contains("Salle B"));
         assertTrue(e.description().contains("Léo, Ilan"));
@@ -64,14 +64,14 @@ class CalendarManagerTest {
     @Test
     void ajouterPlusieursEvenements() {
         calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("Coiffeur"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(45)));
-        calendar.ajouterEvent(new Reunion(new TitreEvenement("Revue"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusHours(2)), new DureeEvenement(60), "Salle A", "Léo"));
+        calendar.ajouterEvent(new Reunion(new TitreEvenement("Revue"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusHours(2)), new DureeEvenement(60), new LieuReunion("Salle A"), "Léo"));
         calendar.ajouterEvent(new Periodique(new TitreEvenement("Stand-up"), new ProprietaireEvenement("Léo"), new DateEvenement(DATE.valeur().plusDays(1)), HEURE, new DureeEvenement(0), 1));
         assertEquals(3, calendar.events.size());
     }
 
     @Test
     void evenementAjouteConserveSesDonnees() {
-        calendar.ajouterEvent(new Reunion(new TitreEvenement("Démo"), new ProprietaireEvenement("Ilan"), DATE, HEURE, new DureeEvenement(90), "Salle C", "Ilan, Noah"));
+        calendar.ajouterEvent(new Reunion(new TitreEvenement("Démo"), new ProprietaireEvenement("Ilan"), DATE, HEURE, new DureeEvenement(90), new LieuReunion("Salle C"), "Ilan, Noah"));
         Reunion e = (Reunion) calendar.events.getFirst();
         assertEquals(new TitreEvenement("Démo"),          e.title);
         assertEquals(new ProprietaireEvenement("Ilan"),    e.proprietaire);

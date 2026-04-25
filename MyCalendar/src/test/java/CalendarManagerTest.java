@@ -18,37 +18,30 @@ class CalendarManagerTest {
     
     @Test
     void rdvPersonnelCommenceParRDV() {
-        Event e = new Event("RDV_PERSONNEL", "Dentiste", "Leo", TIME, 30, "", "", 0);
+        Event e = new RdvPersonnel("Dentiste", "Léo", TIME, 30);
         assertTrue(e.description().startsWith("RDV : "));
     }
 
     @Test
     void rdvPersonnelContientTitreEtDate() {
-        Event e = new Event("RDV_PERSONNEL", "Dentiste", "Leo", TIME, 30, "", "", 0);
+        Event e = new RdvPersonnel("Dentiste", "Léo", TIME);
         assertTrue(e.description().contains("Dentiste"));
         assertTrue(e.description().contains(TIME.toString()));
     }
 
     @Test
     void reunionContientTitreLieuEtParticipants() {
-        Event e = new Event("REUNION", "Sprint", "Leo", TIME, 60, "Salle B", "Leo, Ilan", 0);
+        Event e = new Reunion("Sprint", "Léo", TIME, 60, "Salle B", "Léo, Ilan");
         assertTrue(e.description().contains("Sprint"));
         assertTrue(e.description().contains("Salle B"));
-        assertTrue(e.description().contains("Leo, Ilan"));
+        assertTrue(e.description().contains("Léo, Ilan"));
     }
 
     @Test
     void periodiqueMentionneFrequenceEtTitre() {
-        Event e = new Event("PERIODIQUE", "Stand-up", "Leo", TIME, 0, "", "", 7);
+        Event e = new Periodique("Stand-up", "Léo", TIME, 0, 7);
         assertTrue(e.description().contains("Stand-up"));
         assertTrue(e.description().contains("7"));
-    }
-
-    @Test
-    void typeInconnuRetourneStringVide() {
-        // Comportement actuel documenté : aucun if ne matche → retourne ""
-        Event e = new Event("INCONNU", "Truc", "Leo", TIME, 0, "", "", 0);
-        assertEquals("", e.description());
     }
 
     // Tests d'ajouts d'évènements dans le calendrier
@@ -60,23 +53,22 @@ class CalendarManagerTest {
 
     @Test
     void ajouterUnEvenementIncrementeLaListe() {
-        calendar.ajouterEvent("RDV_PERSONNEL", "Coiffeur", "Leo", TIME, 45, "", "", 0);
+        calendar.ajouterEvent(new RdvPersonnel("Coiffeur", "Léo", TIME, 45));
         assertEquals(1, calendar.events.size());
     }
 
     @Test
     void ajouterPlusieursEvenements() {
-        calendar.ajouterEvent("RDV_PERSONNEL", "Coiffeur", "Leo", TIME, 45, "", "", 0);
-        calendar.ajouterEvent("REUNION", "Revue", "Leo", TIME.plusHours(2), 60, "Salle A", "Leo", 0);
-        calendar.ajouterEvent("PERIODIQUE", "Stand-up", "Leo", TIME.plusDays(1), 0, "", "", 1);
+        calendar.ajouterEvent(new RdvPersonnel("Coiffeur", "Léo", TIME, 45));
+        calendar.ajouterEvent(new Reunion("Revue", "Léo", TIME.plusHours(2), 60, "Salle A", "Léo"));
+        calendar.ajouterEvent(new Periodique("Stand-up", "Léo", TIME.plusDays(1), 0, 1));
         assertEquals(3, calendar.events.size());
     }
 
     @Test
     void evenementAjouteConserveSesDonnees() {
-        calendar.ajouterEvent("REUNION", "Démo", "Ilan", TIME, 90, "Salle C", "Ilan, Noah", 0);
+        calendar.ajouterEvent(new Reunion("Démo", "Ilan", TIME, 90, "Salle C", "Ilan, Noah"));
         Event e = calendar.events.getFirst();
-        assertEquals("REUNION",    e.type);
         assertEquals("Démo",       e.title);
         assertEquals("Ilan",      e.proprietaire);
         assertEquals(TIME,         e.dateDebut);
@@ -89,21 +81,21 @@ class CalendarManagerTest {
 
     @Test
     void evenementDansLaPeriodeEstRetourne() {
-        calendar.ajouterEvent("RDV_PERSONNEL", "Médecin", "Leo", TIME, 30, "", "", 0);
+        calendar.ajouterEvent(new RdvPersonnel("Médecin", "Léo", TIME, 30));
         List<Event> result = calendar.eventsDansPeriode(TIME.minusDays(1), TIME.plusDays(1));
         assertEquals(1, result.size());
     }
 
     @Test
     void evenementHorsPeriodeNestPasRetourne() {
-        calendar.ajouterEvent("RDV_PERSONNEL", "Médecin", "Leo", TIME, 30, "", "", 0);
+        calendar.ajouterEvent(new RdvPersonnel("Médecin", "Léo", TIME, 30));
         List<Event> result = calendar.eventsDansPeriode(TIME.plusDays(1), TIME.plusDays(3));
         assertTrue(result.isEmpty());
     }
 
     @Test
     void evenementSurLaBorneDebutEstInclus() {
-        calendar.ajouterEvent("RDV_PERSONNEL", "Exact", "Leo", TIME, 30, "", "", 0);
+        calendar.ajouterEvent(new RdvPersonnel("Médecin", "Léo", TIME, 30));
         List<Event> result = calendar.eventsDansPeriode(TIME, TIME.plusHours(1));
         assertEquals(1, result.size());
     }
@@ -111,7 +103,7 @@ class CalendarManagerTest {
     @Test
     void evenementPeriodiqueApparaitSiUneOccurrenceTombeDansLaPeriode() {
         // départ BASE, fréquence 7j → occurrence à BASE+14 tombe dans [BASE+13, BASE+15]
-        calendar.ajouterEvent("PERIODIQUE", "Hebdo", "Leo", TIME, 0, "", "", 7);
+        calendar.ajouterEvent(new Periodique("Hebdo", "Léo", TIME, 0, 7));
         List<Event> result = calendar.eventsDansPeriode(TIME.plusDays(13), TIME.plusDays(15));
         assertEquals(1, result.size());
     }
@@ -119,7 +111,7 @@ class CalendarManagerTest {
     @Test
     void evenementPeriodiqueNApparaitPasQuandAucuneOccurrenceDansLaPeriode() {
         // fréquence 7j, cherche entre +1j et +3j → aucune occurrence
-        calendar.ajouterEvent("PERIODIQUE", "Hebdo", "Leo", TIME, 0, "", "", 7);
+        calendar.ajouterEvent(new Periodique("Hebdo", "Léo", TIME, 0, 7));
         List<Event> result = calendar.eventsDansPeriode(TIME.plusDays(1), TIME.plusDays(3));
         assertTrue(result.isEmpty());
     }
@@ -128,29 +120,29 @@ class CalendarManagerTest {
 
     @Test
     void deuxEvenementsQuiSeChevauchentSontEnConflit() {
-        Event e1 = new Event("RDV_PERSONNEL", "A", "Leo", TIME, 60, "", "", 0);
-        Event e2 = new Event("RDV_PERSONNEL", "B", "Leo", TIME.plusMinutes(30), 60, "", "", 0);
+        Event e1 = new RdvPersonnel("A", "Léo", TIME, 60);
+        Event e2 = new RdvPersonnel("B", "Léo", TIME.plusMinutes(30), 60);
         assertTrue(calendar.conflit(e1, e2));
     }
 
     @Test
     void deuxEvenementsDisjointsSontSansConflit() {
-        Event e1 = new Event("RDV_PERSONNEL", "A", "Leo", TIME, 60, "", "", 0);
-        Event e2 = new Event("RDV_PERSONNEL", "B", "Leo", TIME.plusHours(2), 60, "", "", 0);
+        Event e1 = new RdvPersonnel("A", "Léo", TIME, 60);
+        Event e2 = new RdvPersonnel("B", "Léo", TIME.plusHours(2), 60);
         assertFalse(calendar.conflit(e1, e2));
     }
 
     @Test
     void deuxEvenementsAdjacentsSontSansConflit() {
-        Event e1 = new Event("RDV_PERSONNEL", "A", "Leo", TIME, 60, "", "", 0);
-        Event e2 = new Event("RDV_PERSONNEL", "B", "Leo", TIME.plusHours(1), 60, "", "", 0);
+        Event e1 = new RdvPersonnel("A", "Léo", TIME, 60);
+        Event e2 = new RdvPersonnel("B", "Léo", TIME.plusHours(1), 60);
         assertFalse(calendar.conflit(e1, e2));
     }
 
     @Test
     void conflitImpliquantUnPeriodiqueToujoursRetourneFalse() {
-        Event e1 = new Event("RDV_PERSONNEL", "A", "Leo", TIME, 60, "", "", 0);
-        Event e2 = new Event("PERIODIQUE", "Hebdo", "Leo", TIME, 0, "", "", 7);
+        Event e1 = new RdvPersonnel("A", "Léo", TIME, 60);
+        Event e2 = new Periodique("Hebdo", "Léo", TIME, 0, 7);
         assertFalse(calendar.conflit(e1, e2));
         assertFalse(calendar.conflit(e2, e1));
     }

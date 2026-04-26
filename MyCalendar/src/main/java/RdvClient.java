@@ -12,6 +12,6 @@ public class RdvClient extends Event{
     }
 
     public String description(){
-        return "RDV : " + title.valeur() + " le " + dateDebut.valeur().toString() + " à " + heureDebut.valeur().toString() + " avec " + nomClient.valeur();
+        return "RDV Client : " + title.valeur() + " le " + dateDebut.valeur().toString() + " à " + heureDebut.valeur().toString() + " avec " + nomClient.valeur();
     }
 }

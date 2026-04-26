@@ -207,4 +207,31 @@ class CalendarManagerTest {
         Event e2 = new RdvPersonnel(new TitreEvenement("Appel"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusMinutes(30)), new DureeEvenement(60));
         assertTrue(calendar.conflit(e1, e2));
     }
+
+    // Tests : vérification automatique des conflits à l'insertion
+
+    @Test
+    void ajouterUnEvenementEnConflitLeveUneException() {
+        calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("A"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60)));
+        assertThrows(ConflitEvenementException.class, () ->
+                calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("B"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusMinutes(30)), new DureeEvenement(60)))
+        );
+    }
+
+    @Test
+    void ajouterUnEvenementSansConflitNeLevePasException() {
+        calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("A"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60)));
+        assertDoesNotThrow(() ->
+                calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("B"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusHours(2)), new DureeEvenement(60)))
+        );
+    }
+
+    @Test
+    void ajouterUnEvenementEnConflitNAjoutePasLevenement() {
+        calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("A"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60)));
+        try {
+            calendar.ajouterEvent(new RdvPersonnel(new TitreEvenement("B"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusMinutes(30)), new DureeEvenement(60)));
+        } catch (ConflitEvenementException e) { }
+        assertEquals(1, calendar.events.size());
+    }
 }

@@ -33,4 +33,9 @@ public class CalendarManager {
             System.out.println(e.description());
         }
     }
+
+    // CalendarManager.java — ajouter la méthode
+    public void supprimerEvent(EventId id) {
+        events.removeIf(e -> e.id.equals(id));
+    }
 }

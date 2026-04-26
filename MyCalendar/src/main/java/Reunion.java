@@ -4,7 +4,7 @@ public class Reunion extends Event {
     public LieuReunion lieu; // utilisé seulement pour REUNION
     public ParticipantsReunion participants; // séparés par virgules (pour REUNION uniquement)
 
-    public Reunion(EventID id, TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, DureeEvenement dureeMinutes, LieuReunion lieu, ParticipantsReunion participants) {
+    public Reunion(EventId id, TitreEvenement title, ProprietaireEvenement proprietaire, DateEvenement dateDebut, HeureDebut heureDebut, DureeEvenement dureeMinutes, LieuReunion lieu, ParticipantsReunion participants) {
         super(id, title, proprietaire, dateDebut, heureDebut, dureeMinutes);
         this.lieu = lieu;
         this.participants = participants;

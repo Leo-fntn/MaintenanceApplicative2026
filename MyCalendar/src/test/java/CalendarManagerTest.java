@@ -165,7 +165,7 @@ class CalendarManagerTest {
         EventId id1 = new EventId("abc-123");
         EventId id2 = new EventId("def-456");
         calendar.ajouterEvent(new RdvPersonnel(id1, new TitreEvenement("Dentiste"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(30)));
-        calendar.ajouterEvent(new RdvPersonnel(id2, new TitreEvenement("Coiffeur"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(45)));
+        calendar.ajouterEvent(new RdvPersonnel(id2, new TitreEvenement("Coiffeur"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusMinutes(30)), new DureeEvenement(45)));
         calendar.supprimerEvent(id1);
         assertEquals(1, calendar.events.size());
         assertEquals(id2, ((RdvPersonnel) calendar.events.getFirst()).id);

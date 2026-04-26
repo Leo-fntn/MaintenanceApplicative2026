@@ -19,6 +19,9 @@ public class Periodique extends Event {
 
     @Override
     public Boolean estDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+        // il reste un if, possible de le retirer en construisant un booléen qui passe à true si la condition est valide
+        // et qui reste à true ensuite : bool = bool || condition
+        // mais inutile et pas opti
         LocalDateTime temp = LocalDateTime.of(dateDebut.valeur(), heureDebut.valeur());
         while (temp.isBefore(fin)) {
             if (!temp.isBefore(debut)) {

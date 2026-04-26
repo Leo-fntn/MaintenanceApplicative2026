@@ -177,4 +177,34 @@ class CalendarManagerTest {
         calendar.supprimerEvent(new EventId("inexistant"));
         assertEquals(1, calendar.events.size());
     }
+
+    // Tests pour l'ajout d'un nouveau type d'Event :
+    // Tests pour RdvClient
+    @Test
+    void rdvClientContientTitreClientEtDate() {
+        Event e = new RdvClient(new TitreEvenement("Démo produit"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60), new NomClient("Acme Corp"));
+        assertTrue(e.description().contains("Démo produit"));
+        assertTrue(e.description().contains("Acme Corp"));
+        assertTrue(e.description().contains(DATE.valeur().toString()));
+    }
+
+    @Test
+    void rdvClientCommenceParRdvClient() {
+        Event e = new RdvClient(new TitreEvenement("Démo produit"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60), new NomClient("Acme Corp"));
+        assertTrue(e.description().startsWith("RDV Client : "));
+    }
+
+    @Test
+    void rdvClientEstRetourneDansPeriode() {
+        calendar.ajouterEvent(new RdvClient(new TitreEvenement("Démo produit"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60), new NomClient("Acme Corp")));
+        List<Event> result = calendar.eventsDansPeriode(TIME.minusDays(1), TIME.plusDays(1));
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void rdvClientEstEnConflitAvecUnRdvPersonnel() {
+        Event e1 = new RdvClient(new TitreEvenement("Démo produit"), new ProprietaireEvenement("Léo"), DATE, HEURE, new DureeEvenement(60), new NomClient("Acme Corp"));
+        Event e2 = new RdvPersonnel(new TitreEvenement("Appel"), new ProprietaireEvenement("Léo"), DATE, new HeureDebut(HEURE.valeur().plusMinutes(30)), new DureeEvenement(60));
+        assertTrue(calendar.conflit(e1, e2));
+    }
 }

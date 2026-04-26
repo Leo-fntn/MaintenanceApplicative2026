@@ -11,6 +11,11 @@ public class CalendarManager {
     }
 
     public void ajouterEvent(Event e) {
+        for (Event exist : events){
+            if (conflit(exist, e)){
+                throw new ConflitEvenementException(exist, e);
+            }
+        }
         events.add(e);
     }
 
